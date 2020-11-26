@@ -34,7 +34,7 @@ public class SearchP {
 		searchP.add(searchtf);
 		searchP.add(searchBt);
 		searchP.setBackground(Color.white);
-		searchP.setBounds(0, 0, 300, 75);
+		searchP.setBounds(0, 0, 300, 70);
 		
 		
 		return searchP;

@@ -18,13 +18,13 @@ public class StockDAO {
 		try {
 		
 			
-		conn = DBDAO.getConnection();
-		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);	
+		conn = Main.db.dbConn;
+		stmt = Main.db.setStmt(conn);	
 		
 		String findStock ="SELECT NAME, STOCKS FROM STOCK WHERE STORENO = '"+storeNo+ "' AND STOCKS <= 3";
 		
 		
-		rs = stmt.executeQuery(findStock);
+		rs = Main.db.setRsAll(stmt, findStock);
 		while(rs.next()) {
 			String name = rs.getString("NAME");
 			String stock = rs.getString("STOCKS");
@@ -33,11 +33,16 @@ public class StockDAO {
 			list.add(data);
 		}
 		
+		rs.close();
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		return list;
 	}
+	
+	
+	
 	
 }

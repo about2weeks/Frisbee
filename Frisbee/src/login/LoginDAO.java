@@ -9,18 +9,17 @@ public class LoginDAO {
 	private Connection conn;
 	private Statement stmt;
 	private ResultSet rsId;
-	private ResultSet rsSt;
 	
 	public String login(String id, String pwd){
 		
 		try {
 			
-			conn = DBDAO.getConnection();
-			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			conn = Main.db.dbConn;
+			stmt = DBDAO.setStmt(conn);
 			
-			String findId = "SELECT * FROM LOGIN WHERE ID = '"+id+"'";
+			String findId = "SELECT * FROM LOGIN WHERE ID = '"+id.toUpperCase()+"'";
 			
-			rsId = stmt.executeQuery(findId);
+			rsId = DBDAO.setRsAll(stmt, findId);
 			rsId.last();
 			
 			if(rsId.getRow()==0) {
@@ -29,11 +28,11 @@ public class LoginDAO {
 				rsId.previous();
 				String empno = "";
 				String getPw = "";
-				String storeNo = "";
 				while(rsId.next()) {
 					empno = rsId.getString("EMPNO");
 					getPw = rsId.getString("PSWD");
 				}
+				rsId.close();
 				if(pwd.equals(getPw)) {
 					return empno;
 				}else {

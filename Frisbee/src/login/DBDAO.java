@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBDAO {
-	public static Connection dbConn;
+	public Connection dbConn;
 	public static Statement dbST;
 	public static ResultSet dbRS;
 	
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		
-		Connection conn = null;	
+		Connection dbConn = null;	
 		try {
 			String driver = "oracle.jdbc.driver.OracleDriver";
 			String user = "frisbee";
@@ -22,7 +22,7 @@ public class DBDAO {
 			
 			Class.forName(driver);
 			System.out.println("driver loading success");
-			conn = DriverManager.getConnection(url, user,pw);
+			dbConn = DriverManager.getConnection(url, user,pw);
 			System.out.println("connection success");
 			
 		}catch(ClassNotFoundException cnfe) {
@@ -33,32 +33,32 @@ public class DBDAO {
 			System.out.println("unknown error");
 			e.printStackTrace();
 		}
-		return conn;
+		return dbConn;
 	}
 	
 	public static Statement setStmt(Connection conn) {
 		
-		Statement st = null;
+		Statement dbST = null;
 		
 		try {
-		st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+		dbST = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return st;
+		return dbST;
 	}
 	
 	public static ResultSet setRsAll(Statement st,String query) {
 		
-		ResultSet rs = null;
+		ResultSet dbRS = null;
 		
 		try {
-			rs = st.executeQuery(query);
+			dbRS = st.executeQuery(query);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return rs;
+		return dbRS;
 	}
 	
 	

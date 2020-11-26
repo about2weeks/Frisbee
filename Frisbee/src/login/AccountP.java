@@ -1,5 +1,6 @@
 package login;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -7,12 +8,13 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class AccountP implements MouseListener{
 	
-	JFrame currentF;
+	JTabbedPane tabP;
 	JPanel accP;
 	JPanel nameP;
 	JPanel imgP;
@@ -27,16 +29,19 @@ public class AccountP implements MouseListener{
 	String empname;
 	String emprank;
 	
+	CardLayout cd;
+	
 	public AccountP() {
 		
 	}
 	
 	
-	public AccountP(JFrame currentF,String empno, String empname, String emprank) {
+	public AccountP(JTabbedPane tabP,String empno, String empname, String emprank) {
 		
-		this.currentF = currentF;
+		this.tabP = tabP;
 		this.empname = empname;
 		this.emprank = emprank;
+		//this.profileP = profileP;
 		
 		accP = new JPanel();
 		nameP = new JPanel();
@@ -47,7 +52,6 @@ public class AccountP implements MouseListener{
 		nameL = new JLabel("이름 : "+empname);
 		rankL = new JLabel("직급 : "+emprank);
 		
-		profileP = new ProfileP(empno).setPanel();
 		
 	}
 	
@@ -57,8 +61,8 @@ public class AccountP implements MouseListener{
 		imgL.addMouseListener(this);
 		
 		nameP.setLayout(null);
-		nameL.setBounds(10,15,100,18);
-		rankL.setBounds(10,33,100,18);
+		nameL.setBounds(10,20,100,18);
+		rankL.setBounds(10,38,100,18);
 		nameP.add(nameL);
 		nameP.add(rankL);
 		nameP.setBackground(Color.white);
@@ -66,14 +70,14 @@ public class AccountP implements MouseListener{
 		
 		
 		imgP.setLayout(null);
-		imgL.setBounds(0, 5, 50, 50);
+		imgL.setBounds(5, 10, 50, 50);
 		imgP.add(imgL);
 		imgP.setBackground(Color.white);
 		imgP.setBounds(100,0,60,60);
 		
 		accP.setLayout(null);
-		accP.setBounds(800,0,200,75);
-		accP.setBackground(Color.blue);
+		accP.setBounds(800,0,200,70);
+		accP.setBackground(Color.white);
 		accP.add(nameP);
 		accP.add(imgP);
 		
@@ -85,8 +89,9 @@ public class AccountP implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==imgL) {
-			
-			
+			tabP.setSelectedIndex(5);
+			//f.add(profileP);
+			//cd.show(mainP, "profile");
 		}
 		
 	}

@@ -32,15 +32,15 @@ public class BLOBDAO {
 		String getIcon = "SELECT PIC FROM EMP WHERE EMPNO = '"+empno+"'";
 		
 		try {
-		conn = DBDAO.getConnection();
-		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-		rs = stmt.executeQuery(getIcon);
+		conn = Main.db.dbConn;
+		stmt = Main.db.setStmt(conn);	
+		rs = Main.db.setRsAll(stmt, getIcon);
 		
 		byte[] image = null;
 		while(rs.next()) {
 			image = rs.getBytes("PIC");
 		}
-		
+		rs.close();
 		Image img = Toolkit.getDefaultToolkit().createImage(image);
 		ImageIcon icon = new ImageIcon(img);
 		
@@ -58,6 +58,7 @@ public class BLOBDAO {
 		return imgResult; 
 		*/
 		
+
 		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -69,10 +70,6 @@ public class BLOBDAO {
 	}
 	
 	public void PrintGood(String goodname) {
-		
-	}
-	
-	public static void main(String[] args) {
 		
 	}
 	

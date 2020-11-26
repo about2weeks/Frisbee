@@ -16,6 +16,8 @@ public class StockVo {
 	
 	
 	
+	
+	
 	public String getName() {
 		return name;
 	}

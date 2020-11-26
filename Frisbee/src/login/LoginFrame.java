@@ -75,8 +75,8 @@ public class LoginFrame extends JFrame implements ActionListener{
 			}else if(cmd!=null){
 				notice.setForeground(Color.black);
 				notice.setText("로그인 성공");
-				//MainFrame mf = new MainFrame(cmd);
-				//mf.setFrame();
+				MainFrame mf = new MainFrame(cmd);
+				mf.setFrame();
 				System.out.println(cmd);
 			}
 		}else if(e.getActionCommand().equals("회원가입")) {

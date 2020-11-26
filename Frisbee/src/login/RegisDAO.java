@@ -16,8 +16,8 @@ public class RegisDAO {
 		
 		try {
 			
-			conn = DBDAO.getConnection();
-			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			conn = Main.db.dbConn;
+			stmt = Main.db.setStmt(conn);	
 			
 			String findEMP = "SELECT * FROM EMP";
 			if(empno!=null) {
@@ -42,28 +42,33 @@ public class RegisDAO {
 			//아이디가 이미 존재하는지 찾기 
 			
 			
-			rsE = stmt.executeQuery(findEMP);
+			rsE = Main.db.setRsAll(stmt, findEMP);
 			rsE.last();
+			int emp = rsE.getRow();
+			rsE.close();
 			
-			if(rsE.getRow()==0) {
-				return 1; //회원가입 해야한다 
+			rsEI = Main.db.setRsAll(stmt, findEMPID);
+			rsEI.last();
+			int EIrow = rsEI.getRow();
+			rsEI.close(); 
+			
+			rsI = Main.db.setRsAll(stmt, findID);
+			rsI.last();
+			int Irow = rsI.getRow();
+			rsI.close();
+			
+			if(emp==0) {
+				return 1;	//없는 직원 코드 
 			}
-			else {
-			 rsEI = stmt.executeQuery(findEMPID);
-			 rsEI.last();
-			 int EIrow = rsEI.getRow();
-			 
-			 rsI = stmt.executeQuery(findID);
-			 rsI.last();
-			 int Irow = rsI.getRow();
+			else if(emp!=0){
 				if(EIrow!=0) {
 					return 2; //이미 회원가입 되어있음 
 				}else if(EIrow==0&&Irow!=0) {
 					return 3; //아이디가 이미 있
-				}else {
+				}else if(EIrow==0&&Irow==0){
 					
 					String insert = "INSERT INTO LOGIN VALUES ('"+empno
-							+"','"+id+"','"+pwd+"')";
+							+"','"+id.toUpperCase()+"','"+pwd+"')";
 					boolean b = stmt.execute(insert);
 					if(b) {
 						return 4;

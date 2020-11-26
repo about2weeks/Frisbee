@@ -99,9 +99,10 @@ public class RegisFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null,"회원가입에 실패하였습니다.","회원가입", JOptionPane.WARNING_MESSAGE);
 				break;
 			case 5:
+				notice.setText("");
 				int result = JOptionPane.showConfirmDialog(null,"회원가입에 성공하였습니다.\n로그인 화면으로 돌아갑니다."
 					,"회원가입", JOptionPane.YES_NO_OPTION);
-				if(result ==1) {
+				if(result ==0) {
 					toBack.setFrame();
 				}
 				break;	

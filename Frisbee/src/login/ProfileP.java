@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class ProfileP {
@@ -18,8 +19,10 @@ public class ProfileP {
 	JLabel nameL;
 	JLabel emailL;
 	JLabel salL;
+	JLabel timeL;
 	
 	JTable table;
+	JScrollPane tableP;
 
 	
 	
@@ -29,10 +32,10 @@ public class ProfileP {
 		ArrayList<AccountVo> list = ad.setProfile(empno);
 		AccountVo data = list.get(0);
 		String name = data.getName();
-		String rank = data.getRank();
+		//String rank = data.getRank();
 		String phone = data.getPhone();
 		String email = data.getEmail();
-		String superC = data.getSuperC();
+		//String superC = data.getSuperC();
 		String sal = data.getSal();
 		String start = data.getStart();
 		String end = data.getEnd();
@@ -44,30 +47,49 @@ public class ProfileP {
 		nameP = new JPanel();
 		titleL = new JLabel("내 계정");
 		titleL.setFont(new Font("돋움",Font.BOLD,20));
-		nameL = new JLabel("이름 : "+name+"\t	직원 코드 : "+empno+"\t관리자 이름 : "+superN);
-		emailL = new JLabel("연락처 : "+phone+"\t이메일 : "+email);
-		salL = new JLabel("월급일 : "+sal+"\t시작일 : "+start+"\t종료일 : "+end);
+		nameL = new JLabel("이름  :  "+name+"              직원 코드  :  "+empno+"              관리자 이름  :  "+superN);
+		emailL = new JLabel("연락처  :  "+phone+"              이메일  :  "+email);
+		salL = new JLabel("월급일 : "+sal+"       시작일 : "+start+"       종료일 : "+end);
 		
+		
+		
+		table = new SetTable().setAttendPTable(new AttendDAO().setAttendP(empno));
+		tableP = new JScrollPane(table);
+		
+		
+		int attend = table.getRowCount();
+		int sum = 0;
+		for(int i= 0; i<attend; i++) {
+			sum += Integer.parseInt((String) table.getValueAt(i, 4));
+		}
+		timeL = new JLabel("총 근무일 : "+attend+"일   총 근무 시간 : "+sum+"시간");
+		timeL.setFont(new Font("돋움",Font.BOLD,18));
 		
 	}
 	
 	public JPanel setPanel() {
 		
 		nameP.setLayout(null);
-		titleL.setBounds(10, 10, 100, 30);
-		nameL.setBounds(10, 40, 600, 20);
-		emailL.setBounds(10, 60, 600, 20);
-		salL.setBounds(10, 80, 600, 20);
+		nameP.setBounds(0, 0, 960, 210);
+		titleL.setBounds(10, 10, 100, 50);
+		nameL.setBounds(10, 60, 940, 30);
+		emailL.setBounds(10, 90, 940, 30);
+		salL.setBounds(10, 120, 940, 30);
+		timeL.setBounds(10,160,940,40);
 		nameP.add(titleL);
 		nameP.add(nameL);
 		nameP.add(emailL);
 		nameP.add(salL);
+		nameP.add(timeL);
 		nameP.setBackground(Color.white);
 		
+		tableP.setBounds(10,210,900,330);
+		
 		profileP.setLayout(null);
-		profileP.setBounds(20,100,960,575);
-		profileP.setBackground(Color.blue);
+		profileP.setBounds(0,100,960,570);
+		profileP.setBackground(Color.white);
 		profileP.add(nameP);
+		profileP.add(tableP);
 		
 		
 		return profileP;

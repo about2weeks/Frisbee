@@ -15,6 +15,8 @@ public class AccountVo {
 	private String superC;
 	private String superN;
 	
+	private String rowNum;
+	
 	//private Image
 	
 	public AccountVo(String empno, String storeNo,String storeName, String name, String rank) {
@@ -35,6 +37,15 @@ public class AccountVo {
 		this.start = start;
 		this.end = end;
 		this.superN = superN;
+	}
+	
+	public AccountVo(String empNo, String empName, String rank, String StartDate, String phone, String rowNum) {
+		this.empno = empNo;
+		this.name = empName;
+		this.rank = rank;
+		this.start = StartDate;
+		this.phone = phone;
+		this.rowNum = rowNum;
 	}
 	
 	
@@ -86,6 +97,10 @@ public class AccountVo {
 	}
 	public String getRank() {
 		return rank;
+	}
+
+	public String getRowNum() {
+		return rowNum;
 	}
 
 	
