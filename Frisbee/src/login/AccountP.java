@@ -47,7 +47,7 @@ public class AccountP implements MouseListener{
 		nameP = new JPanel();
 		imgP = new JPanel();
 		
-		acctI = new BLOBDAO().PrintIcon(empno);
+		acctI = new BLOBDAO().printEmp(empno);
 		imgL = new JLabel(acctI);
 		nameL = new JLabel("이름 : "+empname);
 		rankL = new JLabel("직급 : "+emprank);

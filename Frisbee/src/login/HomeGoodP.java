@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 public class HomeGoodP {
@@ -17,6 +19,7 @@ public class HomeGoodP {
 	
 	JLabel titleL;
 	
+	DefaultTableModel model;
 	JTable table;
 	JScrollPane tableP;
 	
@@ -28,7 +31,10 @@ public class HomeGoodP {
 		titleL.setFont(new Font("돋움",Font.BOLD,20));
 		
 		
-		table = new SetTable().setStockTable(new StockDAO().setStock(storeNo));
+		model = new SetTable().setStockTable(new StockDAO().setStock(storeNo));
+		table = new JTable(model);
+		JTableHeader header = table.getTableHeader();
+		header.setForeground(Color.white);
 		tableP = new JScrollPane(table);
 		
 		//재고 숫자만 왼쪽 정렬 

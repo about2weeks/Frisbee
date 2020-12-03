@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class ProfileP {
 
@@ -21,6 +23,7 @@ public class ProfileP {
 	JLabel salL;
 	JLabel timeL;
 	
+	DefaultTableModel model;
 	JTable table;
 	JScrollPane tableP;
 
@@ -36,9 +39,9 @@ public class ProfileP {
 		String phone = data.getPhone();
 		String email = data.getEmail();
 		//String superC = data.getSuperC();
-		String sal = data.getSal();
-		String start = data.getStart();
-		String end = data.getEnd();
+		String sal = data.getSal().substring(0, 10);
+		String start = data.getStart().substring(0,10);
+		String end = data.getEnd().substring(0,10);
 		String superN = data.getSuperN();
 		
 		
@@ -53,7 +56,10 @@ public class ProfileP {
 		
 		
 		
-		table = new SetTable().setAttendPTable(new AttendDAO().setAttendP(empno));
+		model = new SetTable().setAttendPTable(new AttendDAO().setAttendP(empno));
+		table = new JTable(model);
+		JTableHeader header = table.getTableHeader();
+		header.setForeground(Color.white);
 		tableP = new JScrollPane(table);
 		
 		
@@ -83,7 +89,7 @@ public class ProfileP {
 		nameP.add(timeL);
 		nameP.setBackground(Color.white);
 		
-		tableP.setBounds(10,210,900,330);
+		tableP.setBounds(10,210,900,320);
 		
 		profileP.setLayout(null);
 		profileP.setBounds(0,100,960,570);

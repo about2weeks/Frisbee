@@ -17,7 +17,7 @@ public class RegisDAO {
 		try {
 			
 			conn = Main.db.dbConn;
-			stmt = Main.db.setStmt(conn);	
+			stmt = DBDAO.setStmt(conn);	
 			
 			String findEMP = "SELECT * FROM EMP";
 			if(empno!=null) {
@@ -42,17 +42,17 @@ public class RegisDAO {
 			//아이디가 이미 존재하는지 찾기 
 			
 			
-			rsE = Main.db.setRsAll(stmt, findEMP);
+			rsE = DBDAO.setRsAll(stmt, findEMP);
 			rsE.last();
 			int emp = rsE.getRow();
 			rsE.close();
 			
-			rsEI = Main.db.setRsAll(stmt, findEMPID);
+			rsEI = DBDAO.setRsAll(stmt, findEMPID);
 			rsEI.last();
 			int EIrow = rsEI.getRow();
 			rsEI.close(); 
 			
-			rsI = Main.db.setRsAll(stmt, findID);
+			rsI = DBDAO.setRsAll(stmt, findID);
 			rsI.last();
 			int Irow = rsI.getRow();
 			rsI.close();

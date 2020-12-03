@@ -27,7 +27,7 @@ public class BLOBDAO {
 	
 	int chunkSize = 0;
 	
-	public ImageIcon PrintIcon(String empno) {
+	public ImageIcon printEmp(String empno) {
 		
 		String getIcon = "SELECT PIC FROM EMP WHERE EMPNO = '"+empno+"'";
 		
@@ -69,7 +69,32 @@ public class BLOBDAO {
 		
 	}
 	
-	public void PrintGood(String goodname) {
+	public ImageIcon printGood(String goodNo) {
+		
+	String getIcon = "SELECT PIC FROM STOCK WHERE GOODNO = '"+goodNo+"'";
+		
+		try {
+		conn = Main.db.dbConn;
+		stmt = Main.db.setStmt(conn);	
+		rs = Main.db.setRsAll(stmt, getIcon);
+		
+		byte[] image = null;
+		while(rs.next()) {
+			image = rs.getBytes("PIC");
+		}
+		rs.close();
+		Image img = Toolkit.getDefaultToolkit().createImage(image);
+		ImageIcon icon = new ImageIcon(img);
+		
+		return icon;
+
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 		
 	}
 	

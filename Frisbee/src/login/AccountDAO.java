@@ -70,29 +70,40 @@ public class AccountDAO {
 		
 	
 			rs1 = DBDAO.setRsAll(stmt, findPf);
-			rs1.next();
-			String name = rs1.getString("EMPNAME");
-			String rank = rs1.getString("EMPRANK");
-			String phone = rs1.getString("PHONE");
-			String email = rs1.getNString("EMAIL");
-			String sal = rs1.getString("SALDATE");
-			String start = rs1.getString("STARTDATE");
-			String end = rs1.getNString("ENDDATE");
+			String name = "";
+			String rank = "";
+			String phone = "";
+			String email = "";
+			String sal = "";
+			String start = "";
+			String end = "";
+			if(rs1.next()) {
+			name = rs1.getString("EMPNAME");
+			rank = rs1.getString("EMPRANK");
+			phone = rs1.getString("PHONE");
+			email = rs1.getNString("EMAIL");
+			sal = rs1.getString("SALDATE");
+			start = rs1.getString("STARTDATE");
+			end = rs1.getNString("ENDDATE");
+			}
 			
 			String findS = "SELECT NVL(SUPER, '-') FROM EMP WHERE EMPNO = '"+empno+"'";
 
 			rs1 = DBDAO.setRsAll(stmt, findS);
-			rs1.next();
-			String superC = rs1.getString(1);
-			String superN;
+			String superC = "";
+			String superN = "";
+			if(rs1.next()) {
+			superC = rs1.getString(1);
+			}
 			if(superC.equals("-")) {
 				superN = "-";
 			}else {
-			String findSu ="SELECT NVL(EMPNAME,'-') FROM EMP WHERE EMPNO = '"+superC+"'";
+			String findSu ="SELECT EMPNAME FROM EMP WHERE EMPNO = '"+superC+"'";
 			rs1.close();
 			rs2 = DBDAO.setRsAll(stmt, findSu);
-			rs2.next();
-			superN = rs2.getString("EMPNAME");
+			if(rs2.next()) {
+				superN = rs2.getString("EMPNAME");
+			}
 			}
 			AccountVo data = new AccountVo(name, rank, 
 					phone, email, superC, sal, 
@@ -131,6 +142,7 @@ public class AccountDAO {
 				String phone = rs1.getString("PHONE");
 				
 				
+				
 				AccountVo data = new AccountVo(empNo, empName,rank,StartDate,phone,rowNum);
 				list.add(data);
 			}
@@ -146,6 +158,53 @@ public class AccountDAO {
 		
 		
 		return list;
+	}
+	
+	public int insertAccount(String name, String superC, String rank, String empno, String start, String phone, String email, String storeNo) {
+		
+		try {
+			conn = Main.db.dbConn;
+			stmt = DBDAO.setStmt(conn);	
+			
+			String findEMP = "SELECT * FROM EMP";
+			if(empno!=null) {
+				findEMP += " WHERE EMPNO = '"+empno.toUpperCase()+"'";
+			}
+			//직원 코드가 존재하는지 찾기 
+			
+			String end = start.replace("2020", "2023");
+			int salD = Integer.parseInt(start.substring(5,7))+1 > 12 ? 1 : Integer.parseInt(start.substring(5,7))+1;
+			String sal = "2020-"+String.valueOf(salD)+"-15";
+			
+			String insertEMP = "INSERT INTO EMP (EMPNO, STORENO, EMPNAME, EMPRANK, PHONE, EMAIL, "
+					+ "SUPER, STARTDATE, ENDDATE, SALDATE)" + 
+					"VALUES ('"+empno+"', '"+storeNo+"', '"+name+"', '"+rank+"', '"+phone+"', '"+email+"', '"
+					+ superC+"', TO_DATE('"+start+"','YYYY-MM-DD'), TO_DATE('"+end+"','YYYY-MM-DD'), "
+							+ "TO_DATE('"+sal+"','YYYY-MM-DD'))";
+			
+			rs1 = DBDAO.setRsAll(stmt, findEMP);
+			rs1.last();
+			if(rs1.getRow()!=0) {
+				System.out.println("exist?");
+				return 0;
+			}else {
+				boolean b = stmt.execute(insertEMP);
+				if(!b) {
+					return 1;
+				}else {
+					System.out.println("why?");
+					return 0;
+				}
+			}
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
 	}
 	
 }
