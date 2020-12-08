@@ -86,6 +86,31 @@ public class AttendDAO {
 		return list;
 	}
 	
-	
+	public int insertAttend(String empno, String storeNo, String date, String start, String end, String whole) {
+		try {
+			conn = Main.db.dbConn;
+			stmt = DBDAO.setStmt(conn);	
+			
+			String insert = "INSERT INTO ATTEND (ATTENDTIME, EMPNO, STARTTIME, ENDTIME, WHOLETIME, STORENO) "
+					+ "VALUES(TO_DATE('"+date+"','YYYY-MM-DD'),'"+empno+"', "
+					+ "TO_DATE('"+date+" "+start+"','YYYY-MM-DD HH24:MI'),"
+					+ "TO_DATE('"+date+" "+end+"','YYYY-MM-DD HH24:MI'),"+whole+",'"+storeNo+"')";
+			
+			
+				boolean b = stmt.execute(insert);
+				if(!b) {
+					return 1;
+				}else {
+					System.out.println("why?");
+					return 0;
+				}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
 	
 }

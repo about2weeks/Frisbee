@@ -35,11 +35,8 @@ public class MainFrame {
 	
 	
 	JPanel sellP;
-	
 	JPanel stockP;
-	
 	JPanel buyP;
-	
 	JPanel empP;
 	
 	CardLayout cd = new CardLayout();
@@ -60,7 +57,7 @@ public class MainFrame {
 		tabP = new JTabbedPane();
 		
 		searchP = new SearchP().setPanel();
-		profileP = new ProfileP(empno).setPanel();
+		profileP = new ProfileP(empno, storeNo).setPanel();
 		accP = new AccountP(tabP,empno,empname,emprank).setPanel();
 		
 		homeP = new JPanel();
@@ -71,7 +68,9 @@ public class MainFrame {
 		
 		sellP = new SellP(storeNo).setPanel();
 		
-		stockP = new JPanel();
+		stockP = new StockP(storeNo).setPanel();
+		
+		buyP = new BuyP(storeNo).setPanel();
 		
 		//tabP = new JPanel();
 		

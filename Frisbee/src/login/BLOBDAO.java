@@ -69,9 +69,9 @@ public class BLOBDAO {
 		
 	}
 	
-	public ImageIcon printGood(String goodNo) {
+	public ImageIcon printGood(String goodName, String storeNo) {
 		
-	String getIcon = "SELECT PIC FROM STOCK WHERE GOODNO = '"+goodNo+"'";
+	String getIcon = "SELECT PIC FROM STOCK WHERE NAME = '"+goodName+"' AND STORENO = '"+storeNo+"'";
 		
 		try {
 		conn = Main.db.dbConn;
@@ -80,7 +80,7 @@ public class BLOBDAO {
 		
 		byte[] image = null;
 		while(rs.next()) {
-			image = rs.getBytes("PIC");
+				image = rs.getBytes("PIC");
 		}
 		rs.close();
 		Image img = Toolkit.getDefaultToolkit().createImage(image);

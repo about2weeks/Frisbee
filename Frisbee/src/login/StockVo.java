@@ -14,7 +14,13 @@ public class StockVo {
 		this.stocks = stocks;
 	}
 	
-	
+	public StockVo(String goodNo, String name, String stocks, int unitPrice, String loc) {
+		this.goodNo = goodNo;
+		this.name = name;
+		this.stocks = stocks;
+		this.unitPrice = unitPrice;
+		this.loc = loc;
+	}
 	
 	
 	

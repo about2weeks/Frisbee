@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -20,31 +21,37 @@ import javax.swing.table.TableModel;
 public class StockP implements MouseListener {
 
 	JPanel stockP;
-
-	JPanel itemP;
 	
 	JLabel titleL;
 	
 	ImageIcon img;
 	JLabel imgL;
+	JLabel infoL;
 	
 	DefaultTableModel model;
 	JTable table;
 	JScrollPane tableP;
 	
+	String storeNo;
+	
 	public StockP(String storeNo) {
+		
+		this.storeNo = storeNo;
+		
 		
 		stockP = new JPanel();
 		
-		itemP = new JPanel();
-		
-		//img = new BLOBDAO().printGood(goodNo);
 		
 		titleL = new JLabel("재고");
 		titleL.setFont(new Font("돋움",Font.BOLD,20));
 		
+		infoL = new JLabel();
+		imgL = new JLabel();
+		
 		model = new SetTable().setStockTable(new StockDAO().setAllStock(storeNo));
 		table = new JTable(model);
+		
+
 		JTableHeader header = table.getTableHeader();
 		header.setForeground(Color.white);
 		tableP = new JScrollPane(table);
@@ -64,8 +71,32 @@ public class StockP implements MouseListener {
 			TableModel md = (TableModel) table.getModel();
 			int rowIndex = table.getSelectedRow();
 			int colIndex = table.getSelectedColumn();
-			String selectNo = (String) md.getValueAt(rowIndex, colIndex);
+			String selectName = (String) md.getValueAt(rowIndex, colIndex);
 			if(colIndex==0) {
+				
+				stockP.remove(imgL);
+				
+				img = new BLOBDAO().printGood(selectName, storeNo);
+				imgL = new JLabel(img);
+				
+				ArrayList<StockVo> list = new StockDAO().setStockProfile(storeNo,selectName);
+				
+				StockVo data = list.get(0);
+				String goodNo = data.getGoodNo();
+				String name = data.getName();
+				String stocks = data.getStocks();
+				int unitPrice = data.getUnitPrice();
+				String loc = data.getLoc();
+				
+				String info = "<html><body>제품명  :  "+name+"<br/>제품 코드  :  "+goodNo+"<br/>단가  :  "
+						+unitPrice+"<br/>재고  :  "+stocks+"<br/>재고 위치  :  "+loc+"</body></html>";
+				
+				infoL.setText(info);
+				
+				imgL.setBounds(330, 65, 200, 250);
+				stockP.add(imgL);
+				stockP.revalidate();
+				stockP.repaint();
 				
 			}
 		}
@@ -76,18 +107,21 @@ public class StockP implements MouseListener {
 		
 		table.addMouseListener(this);
 		
-		
-		itemP.setLayout(null);
-		
-		
-		
-		
+		titleL.setBounds(10, 10, 250, 50);
+		infoL.setBounds(550, 40, 240, 200);
+		imgL.setBounds(330, 65, 200, 250);
+	
+		tableP.setBounds(10,65,300,450);
+
+
 		stockP.setLayout(null);
 		stockP.setBounds(0,100,960,570);
 		stockP.setBackground(Color.white);
-		stockP.add(itemP);
 		stockP.add(tableP);
 		stockP.add(titleL);
+		stockP.add(infoL);
+		stockP.add(imgL);
+		
 		
 		return stockP;
 	}

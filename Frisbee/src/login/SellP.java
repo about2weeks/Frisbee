@@ -84,8 +84,12 @@ public class SellP implements ActionListener {
 			cnt+= (int) model.getValueAt(i, 2);
 			money += (long) model.getValueAt(i, 4);
 		}
+		titleL.setText(selectM+" 매출");
 		
 		sumL.setText("총 수량   :   "+cnt+"    총액   :   "+money);
+		
+		sellP.revalidate();
+		sellP.repaint();
 		
 	}
 	

@@ -33,6 +33,7 @@ public class HomeGoodP {
 		
 		model = new SetTable().setStockTable(new StockDAO().setStock(storeNo));
 		table = new JTable(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		JTableHeader header = table.getTableHeader();
 		header.setForeground(Color.white);
 		tableP = new JScrollPane(table);
