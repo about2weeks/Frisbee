@@ -155,7 +155,7 @@ public class SetTable {
 			SellVo data = (SellVo) list.get(i);
 			
 			String goodsNo = data.getGoodsNo();
-			String sellTime = data.getSellTime();
+			String sellTime = data.getSellTime().substring(0, 10);
 			String goodsName = data.getGoodsName();
 			int qtty = data.getQtty();
 			long unitPrice = data.getUnitPrice();
@@ -186,6 +186,44 @@ public class SetTable {
 		return model;
 	}
 		
+	public DefaultTableModel setNoticeTable(ArrayList<NoticeVo> list) {
+		
+		
+		title = new Vector<String>();
+		output = new Vector();
+		
+		title.add("번호");
+		title.add("내용");
+		
+		for(int i = 0; i<list.size(); i++) {
+			contents = new Vector<String>();
+			
+			NoticeVo data = (NoticeVo) list.get(i);
+			
+			String no = data.getNo();
+			String content = data.getContent();
+			
+			
+			contents.add(no);
+			contents.add(content);
+
+			
+			output.add(contents);
+			
+		}
+		
+		DefaultTableModel model = new DefaultTableModel(output,title) {
+			public boolean isCellEditable(int row, int column) {
+				
+				return false;
+				}	
+					
+			};
+		
+		return model;
+	}
+	
+	
 
 	
 }

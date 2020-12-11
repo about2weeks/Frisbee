@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class MainFrame {
@@ -27,11 +28,13 @@ public class MainFrame {
 	JPanel accP;
 	JPanel homeP;
 	JPanel homegP;	//home - stock
+
 	JPanel homenP;	//home - notice
+	JButton plus;
+	
 	JPanel profileP;
 	
 	JTabbedPane tabP;	//탭 
-	
 	
 	
 	JPanel sellP;
@@ -42,6 +45,8 @@ public class MainFrame {
 	CardLayout cd = new CardLayout();
 	
 	public MainFrame(String empno) {
+		
+		this.empno = empno;
 		
 		AccountDAO ad = new AccountDAO();
 		ArrayList<AccountVo> list = ad.setAccount(empno);
@@ -62,7 +67,9 @@ public class MainFrame {
 		
 		homeP = new JPanel();
 		homegP = new HomeGoodP(storeName,storeNo).setPanel();
-
+		
+		homenP = new NoticeP(empno, storeNo).setPanel();
+		
 		
 		empP = new empP(empno, storeNo).setPanel();
 		
@@ -85,17 +92,19 @@ public class MainFrame {
 		homeP.setBackground(Color.white);
 		homeP.setBounds(20, 20, 900, 570);
 		homeP.add(homegP);
+		homeP.add(homenP);
 		
 		//tabP.setLayout(null);
 		tabP.add("홈",homeP);
 		tabP.add("매출",sellP);
 		tabP.add("재고",stockP);
 		tabP.add("주문",buyP);
+		if(empno.charAt(0)=='A') {
 		tabP.add("직원",empP);
+		}
 		tabP.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		tabP.add("",profileP);
-		//int index = tabP.indexOfComponent(profileP);
-		//tabP.removeTabAt(index);
+		tabP.setEnabledAt(tabP.getTabCount()-1, false);
 		tabP.setTabPlacement(JTabbedPane.TOP);
 		tabP.setBounds(20,40,960,600);
 		

@@ -101,7 +101,7 @@ public class empP implements ActionListener, MouseListener{
 			String email = pp.tf6.getText();
 			
 			
-			System.out.println(model.getRowCount());
+			//System.out.println(model.getRowCount());
 			
 			if(new AccountDAO().insertAccount(name, empno, rank, code, start, phone, email, storeNo)==1) {
 				try {

@@ -77,11 +77,13 @@ public class LoginFrame extends JFrame implements ActionListener{
 				notice.setText("로그인 성공");
 				MainFrame mf = new MainFrame(cmd);
 				mf.setFrame();
+				f.dispose();
 				System.out.println(cmd);
 			}
 		}else if(e.getActionCommand().equals("회원가입")) {
-			RegisFrame rf = new RegisFrame(this);
+			RegisFrame rf = new RegisFrame(f);
 			rf.setFrame();
+			f.setVisible(false);
 		}
 		
 	}

@@ -37,13 +37,13 @@ public class RegisFrame implements ActionListener {
 	JPanel btP;
 	JPanel noticeP;
 	
-	LoginFrame toBack = null;
+	JFrame toBack = null;
 	
 	public RegisFrame() {
 		
 	}
 	
-	public RegisFrame(LoginFrame lf) {
+	public RegisFrame(JFrame lf) {
 		
 		toBack = lf;
 		
@@ -103,14 +103,18 @@ public class RegisFrame implements ActionListener {
 				int result = JOptionPane.showConfirmDialog(null,"회원가입에 성공하였습니다.\n로그인 화면으로 돌아갑니다."
 					,"회원가입", JOptionPane.YES_NO_OPTION);
 				if(result ==0) {
-					toBack.setFrame();
+					f.dispose();
+					toBack.setVisible(true);
+					//toBack.f.setVisible(false);
 				}
 				break;	
 			}
 			
 			
 		}else if(e.getActionCommand().equals("취소")) {
-			toBack.setFrame();
+			toBack.setVisible(true);
+			//toBack.f.setVisible(false);
+			f.dispose();
 		}
 		
 	}
