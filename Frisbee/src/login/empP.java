@@ -121,6 +121,7 @@ public class empP implements ActionListener, MouseListener{
 				JTableHeader header = table.getTableHeader();
 				header.setForeground(Color.white);
 				tableP = new JScrollPane(table);
+				table.addMouseListener(this);
 				tableP.setBounds(10, 50, 900, 450);
 				empP.add(tableP);
 				

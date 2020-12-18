@@ -50,7 +50,7 @@ public class StockP implements MouseListener {
 		
 		model = new SetTable().setStockTable(new StockDAO().setAllStock(storeNo));
 		table = new JTable(model);
-		
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 
 		JTableHeader header = table.getTableHeader();
 		header.setForeground(Color.white);

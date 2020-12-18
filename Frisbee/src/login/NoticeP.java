@@ -70,6 +70,7 @@ public class NoticeP implements ActionListener {
 				JTableHeader header = table.getTableHeader();
 				header.setForeground(Color.white);
 				tableP = new JScrollPane(table);
+				table.getColumnModel().getColumn(0).setPreferredWidth(5);
 				tableP.setBounds(10, 52, 350, 400);
 				noticeP.add(tableP);
 				

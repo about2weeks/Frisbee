@@ -67,19 +67,13 @@ public class MainFrame {
 		
 		homeP = new JPanel();
 		homegP = new HomeGoodP(storeName,storeNo).setPanel();
-		
 		homenP = new NoticeP(empno, storeNo).setPanel();
 		
-		
 		empP = new empP(empno, storeNo).setPanel();
-		
 		sellP = new SellP(storeNo).setPanel();
-		
 		stockP = new StockP(storeNo).setPanel();
-		
 		buyP = new BuyP(storeNo).setPanel();
 		
-		//tabP = new JPanel();
 		
 		
 	}
